@@ -48,5 +48,7 @@ func main() {
 		}
 	}
 
-	fmt.Println(classes)
+	for i, class := range classes {
+		fmt.Printf("Class %d: %s, %s, %d\n", i+1, class.Name, class.Instructor, class.numCredits)
+	}
 }
