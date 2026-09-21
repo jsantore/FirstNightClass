@@ -16,35 +16,37 @@ type classInfo struct {
 
 func main() {
 	classes := make([]classInfo, 0)
-	nextClass := classInfo{}
+
 	cursor := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter class name: ")
-	name, err := cursor.ReadString('\n')
-	if err != nil {
-		panic(err)
+	for {
+		nextClass := classInfo{}
+
+		fmt.Print("Enter class name: ")
+		name, err := cursor.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
+		nextClass.Name = name
+		fmt.Print("Enter instructor name: ")
+		teacher, err := cursor.ReadString('\n')
+		nextClass.Instructor = teacher
+		fmt.Print("Enter number of credits: ")
+		creditsAsStr, err := cursor.ReadString('\n')
+		creditsAsStr = strings.Trim(creditsAsStr, "\n")
+		credits, err := strconv.Atoi(creditsAsStr)
+		fmt.Println(err)
+		nextClass.numCredits = credits
+		classes = append(classes, nextClass)
+		fmt.Print("Do you want to enter another class? (y/n): ")
+		answer, err := cursor.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
+		answer = strings.Trim(answer, "\n")
+		if answer != "y" {
+			break
+		}
 	}
-	nextClass.Name = name
-	fmt.Print("Enter instructor name: ")
-	teacher, err := cursor.ReadString('\n')
-	nextClass.Instructor = teacher
-	fmt.Print("Enter number of credits: ")
-	creditsAsStr, err := cursor.ReadString('\n')
-	creditsAsStr = strings.Trim(creditsAsStr, "\n")
-	credits, err := strconv.Atoi(creditsAsStr)
-	fmt.Println(err)
-	nextClass.numCredits = credits
-	classes = append(classes, nextClass)
-	//fmt.Print("Enter another class name: ")
-	//name, err = cursor.ReadString('\n')
-	//if err != nil {
-	//	panic(err)
-	//}
-	//classes = append(classes, name)
-	//fmt.Print("Enter another class name: ")
-	//name, err = cursor.ReadString('\n')
-	//if err != nil {
-	//	panic(err)
-	//}
-	//classes = append(classes, name)
+
 	fmt.Println(classes)
 }
