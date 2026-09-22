@@ -6,8 +6,17 @@ import (
 	"strings"
 )
 
-func getFile() []string {
-	contents, err := os.ReadFile("test.txt")
+func main() {
+	allLines := getFile("sillyRec.txt")
+	for i, line := range allLines {
+		if i%2 != 0 {
+			fmt.Println(line)
+		}
+	}
+}
+
+func getFile(name string) []string {
+	contents, err := os.ReadFile(name)
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return nil
